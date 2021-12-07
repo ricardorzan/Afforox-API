@@ -14,7 +14,7 @@ class Sucursal(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, sucursal_id: int=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aforo_actual: float=None, aforo_total: float=None, horario_apertura: str=None, horario_cierre: str=None, servicios: str=None, medidas_seguridad: str=None):  # noqa: E501
+    def __init__(self, sucursal_id: int=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aforo_actual: float=None, aforo_total: float=None, horario_apertura: str=None, horario_cierre: str=None, servicios: List[str]=None, medidas_seguridad: List[str]=None):  # noqa: E501
         """Sucursal - a model defined in Swagger
 
         :param sucursal_id: The sucursal_id of this Sucursal.  # noqa: E501
@@ -44,9 +44,9 @@ class Sucursal(Model):
         :param horario_cierre: The horario_cierre of this Sucursal.  # noqa: E501
         :type horario_cierre: str
         :param servicios: The servicios of this Sucursal.  # noqa: E501
-        :type servicios: str
+        :type servicios: List[str]
         :param medidas_seguridad: The medidas_seguridad of this Sucursal.  # noqa: E501
-        :type medidas_seguridad: str
+        :type medidas_seguridad: List[str]
         """
         self.swagger_types = {
             'sucursal_id': int,
@@ -62,8 +62,8 @@ class Sucursal(Model):
             'aforo_total': float,
             'horario_apertura': str,
             'horario_cierre': str,
-            'servicios': str,
-            'medidas_seguridad': str
+            'servicios': List[str],
+            'medidas_seguridad': List[str]
         }
 
         self.attribute_map = {
@@ -406,55 +406,43 @@ class Sucursal(Model):
         self._horario_cierre = horario_cierre
 
     @property
-    def servicios(self) -> str:
+    def servicios(self) -> List[str]:
         """Gets the servicios of this Sucursal.
 
 
         :return: The servicios of this Sucursal.
-        :rtype: str
+        :rtype: List[str]
         """
         return self._servicios
 
     @servicios.setter
-    def servicios(self, servicios: str):
+    def servicios(self, servicios: List[str]):
         """Sets the servicios of this Sucursal.
 
 
         :param servicios: The servicios of this Sucursal.
-        :type servicios: str
+        :type servicios: List[str]
         """
-        allowed_values = ["estacionamiento", "valetParking", "areaInfantil", "delivery", "paraLlevar", "areaAireLibre", "wifi", "reservaciones"]  # noqa: E501
-        if servicios not in allowed_values:
-            raise ValueError(
-                "Invalid value for `servicios` ({0}), must be one of {1}"
-                .format(servicios, allowed_values)
-            )
 
         self._servicios = servicios
 
     @property
-    def medidas_seguridad(self) -> str:
+    def medidas_seguridad(self) -> List[str]:
         """Gets the medidas_seguridad of this Sucursal.
 
 
         :return: The medidas_seguridad of this Sucursal.
-        :rtype: str
+        :rtype: List[str]
         """
         return self._medidas_seguridad
 
     @medidas_seguridad.setter
-    def medidas_seguridad(self, medidas_seguridad: str):
+    def medidas_seguridad(self, medidas_seguridad: List[str]):
         """Sets the medidas_seguridad of this Sucursal.
 
 
         :param medidas_seguridad: The medidas_seguridad of this Sucursal.
-        :type medidas_seguridad: str
+        :type medidas_seguridad: List[str]
         """
-        allowed_values = ["sanaDistancia", "tomaDeTemperatura", "trabajadoresConProteccion", "gelDesinfectante", "cubrebocasObligatorio", "aguaYJabonEnBaños", "desinfeccionDeSuperficies", "entradasYSalidasSeparadas", "sanitizacionDelEstablecimiento", "sanaDistanciaMarcadaEnFilas", "otra"]  # noqa: E501
-        if medidas_seguridad not in allowed_values:
-            raise ValueError(
-                "Invalid value for `medidas_seguridad` ({0}), must be one of {1}"
-                .format(medidas_seguridad, allowed_values)
-            )
 
         self._medidas_seguridad = medidas_seguridad

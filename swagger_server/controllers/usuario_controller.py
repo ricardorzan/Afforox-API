@@ -1,11 +1,20 @@
+from http import HTTPStatus
+
 import connexion
 import six
+from flask import Response
+from peewee import DoesNotExist
 
+from swagger_server.data.dbmodel import (
+    database,
+    Usuario as UsuarioDB,
+    Domicilio as DomicilioDB
+)
 from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.token import Token  # noqa: E501
 from swagger_server.models.usuario import Usuario  # noqa: E501
 from swagger_server import util
-from flask import Response
+
 
 def get_usuario(usuario_id):  # noqa: E501
     """Obtiene la información de un usuario particular
@@ -34,7 +43,20 @@ def login(username, password):  # noqa: E501
     """
     if connexion.request.is_json:
         password = str.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    response = Response(status=HTTPStatus.NOT_FOUND.value)
+    database.connect()
+    try:
+        user = UsuarioDB.get(UsuarioDB.correoelectronico == username)
+        if (user.contrasenia == password):
+            if (user.aceptadoid == 1):
+                response = Response(status=HTTPStatus.OK.value)
+        else:
+            response = Response(status=HTTPStatus.UNAUTHORIZED.value)
+    except DoesNotExist:
+        response = Response(status=HTTPStatus.NOT_FOUND.value)
+    finally:
+        database.close()
+    return response
 
 
 def nuevo_token(username):  # noqa: E501
@@ -79,8 +101,38 @@ def registrar_usuario(body=None):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Usuario.from_dict(connexion.request.get_json())  # noqa: E501
-    '''return Response(status=201)'''
-    return 'do some magic!'
+    response = Response(status=HTTPStatus.NOT_FOUND.value)
+    list_accounts = UsuarioDB.select().where(UsuarioDB.correoelectronico == body.correo_electronico)
+    if list_accounts.exists():
+        return response
+    else:
+        postedDomicilio = DomicilioDB.create(
+            calle=body.calle,
+            ciudad=body.ciudad,
+            colonia=body.colonia,
+            estado=body.estado,
+            municipio=body.municipio,
+            numeroexterior=body.numero_exterior,
+            numerointerior=body.numero_interior,
+            pais=body.pais
+        )
+        postedDomicilio.save()
+        '''Modificar el codigoautenticacion'''
+        postedUser = UsuarioDB.create(
+            aceptadoid=2,
+            codigoautenticacion='XJ034',
+            contrasenia=body.contrasenia,
+            correoelectronico=body.correo_electronico,
+            edad=body.edad,
+            fechanacimiento=body.fecha_nacimiento,
+            fotoperfil=body.foto_perfil,
+            nombrecompleto=body.nombre_completo,
+            telefono=body.telefono
+        )
+        postedUser.domicilioid = postedDomicilio
+        postedUser.save()
+        response = Response(status=HTTPStatus.CREATED.value)
+    return response
 
 
 def validar_usuario(username, token):  # noqa: E501

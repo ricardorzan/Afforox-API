@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.sucursal import Sucursal  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -14,7 +15,7 @@ class Negocio(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, negocio_id: int=None, foto_perfil: str=None, nombre_completo: str=None, correo_electronico: str=None, telefono: str=None, whatsapp: str=None, facebook: str=None, instagram: str=None, tipo_negocio: str=None):  # noqa: E501
+    def __init__(self, negocio_id: int=None, foto_perfil: str=None, nombre_completo: str=None, correo_electronico: str=None, telefono: str=None, whatsapp: str=None, facebook: str=None, instagram: str=None, tipo_negocio: str=None, sucursales: List[Sucursal]=None):  # noqa: E501
         """Negocio - a model defined in Swagger
 
         :param negocio_id: The negocio_id of this Negocio.  # noqa: E501
@@ -35,6 +36,8 @@ class Negocio(Model):
         :type instagram: str
         :param tipo_negocio: The tipo_negocio of this Negocio.  # noqa: E501
         :type tipo_negocio: str
+        :param sucursales: The sucursales of this Negocio.  # noqa: E501
+        :type sucursales: List[Sucursal]
         """
         self.swagger_types = {
             'negocio_id': int,
@@ -45,7 +48,8 @@ class Negocio(Model):
             'whatsapp': str,
             'facebook': str,
             'instagram': str,
-            'tipo_negocio': str
+            'tipo_negocio': str,
+            'sucursales': List[Sucursal]
         }
 
         self.attribute_map = {
@@ -57,7 +61,8 @@ class Negocio(Model):
             'whatsapp': 'whatsapp',
             'facebook': 'facebook',
             'instagram': 'instagram',
-            'tipo_negocio': 'tipoNegocio'
+            'tipo_negocio': 'tipoNegocio',
+            'sucursales': 'sucursales'
         }
         self._negocio_id = negocio_id
         self._foto_perfil = foto_perfil
@@ -68,6 +73,7 @@ class Negocio(Model):
         self._facebook = facebook
         self._instagram = instagram
         self._tipo_negocio = tipo_negocio
+        self._sucursales = sucursales
 
     @classmethod
     def from_dict(cls, dikt) -> 'Negocio':
@@ -286,11 +292,26 @@ class Negocio(Model):
         :param tipo_negocio: The tipo_negocio of this Negocio.
         :type tipo_negocio: str
         """
-        allowed_values = ["restaurante", "estetica", "salonDeBelleza", "barberia", "gimnasio", "otro"]  # noqa: E501
-        if tipo_negocio not in allowed_values:
-            raise ValueError(
-                "Invalid value for `tipo_negocio` ({0}), must be one of {1}"
-                .format(tipo_negocio, allowed_values)
-            )
 
         self._tipo_negocio = tipo_negocio
+
+    @property
+    def sucursales(self) -> List[Sucursal]:
+        """Gets the sucursales of this Negocio.
+
+
+        :return: The sucursales of this Negocio.
+        :rtype: List[Sucursal]
+        """
+        return self._sucursales
+
+    @sucursales.setter
+    def sucursales(self, sucursales: List[Sucursal]):
+        """Sets the sucursales of this Negocio.
+
+
+        :param sucursales: The sucursales of this Negocio.
+        :type sucursales: List[Sucursal]
+        """
+
+        self._sucursales = sucursales

@@ -58,59 +58,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/token'
       x-openapi-router-controller: swagger_server.controllers.usuario_controller
-  /usuarios/nuevo-token:
-    patch:
-      tags:
-      - usuario
-      summary: Genera un nuevo token de verificación
-      description: Genera un nuevo token de verificación
-      operationId: nuevo_token
-      parameters:
-      - name: username
-        in: query
-        description: El usuario que genera el nuevo token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-          format: eamil
-      responses:
-        "201":
-          description: Correct login
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/token'
-      x-openapi-router-controller: swagger_server.controllers.usuario_controller
-  /usuarios/validacion:
-    patch:
-      tags:
-      - usuario
-      summary: Validación del usuario mediante un token de verificación
-      operationId: validar_usuario
-      parameters:
-      - name: username
-        in: query
-        description: Nombre del usuario a verificar
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-          format: email
-      - name: token
-        in: query
-        description: Token de verificación
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        default:
-          description: succesful operation
-      x-openapi-router-controller: swagger_server.controllers.usuario_controller
   /usuarios:
     post:
       tags:
@@ -150,6 +97,157 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
+      x-openapi-router-controller: swagger_server.controllers.usuario_controller
+  /usuarios/validacion:
+    patch:
+      tags:
+      - usuario
+      summary: Validación del usuario mediante un token de verificación
+      operationId: validar_usuario
+      parameters:
+      - name: username
+        in: query
+        description: Nombre del usuario a verificar
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: email
+      - name: token
+        in: query
+        description: Token de verificación
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: succesful operation
+      x-openapi-router-controller: swagger_server.controllers.usuario_controller
+  /negocios:
+    get:
+      tags:
+      - negocio
+      summary: Obtiene todos los negocios
+      description: Obtiene todos los negocios
+      operationId: get_negocios
+      parameters:
+      - name: salto
+        in: query
+        description: La cantidad de registros a saltar en la respuesta
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: int32
+          default: 0
+      - name: limite
+        in: query
+        description: La cantidad de registros a obtener
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: int32
+          default: 25
+      - name: filtro
+        in: query
+        description: La expresion por la cual se van a filtrar los resultados.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Una lista con los negocios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "403":
+          description: El usuario no cuenta con los permisos necesarios para acceder
+            al recurso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "500":
+          description: Algo salio mal del lado del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-openapi-router-controller: swagger_server.controllers.negocio_controller
+    post:
+      tags:
+      - negocio
+      summary: Registra un negocio
+      description: Registra un negocio
+      operationId: registrar_negocio
+      requestBody:
+        description: Objeto negocio a registrar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/negocio'
+      responses:
+        "201":
+          description: Negocio registrardo
+          headers:
+            Location:
+              description: URI del recurso creado
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/negocio'
+        "400":
+          description: Missing or wrong parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "500":
+          description: Something went wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - bearerAuth: []
+      x-openapi-router-controller: swagger_server.controllers.negocio_controller
+  /usuarios/nuevo-token:
+    patch:
+      tags:
+      - usuario
+      summary: Genera un nuevo token de verificación
+      description: Genera un nuevo token de verificación
+      operationId: nuevo_token
+      parameters:
+      - name: username
+        in: query
+        description: El usuario que genera el nuevo token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: eamil
+      responses:
+        "201":
+          description: Correct login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token'
       x-openapi-router-controller: swagger_server.controllers.usuario_controller
   /usuarios/{usuarioId}:
     get:
@@ -211,104 +309,6 @@ paths:
       security:
       - bearerAuth: []
       x-openapi-router-controller: swagger_server.controllers.usuario_controller
-  /negocios:
-    get:
-      tags:
-      - negocio
-      summary: Obtiene todos los negocios
-      description: Obtiene todos los negocios
-      operationId: get_negocios
-      parameters:
-      - name: salto
-        in: query
-        description: La cantidad de registros a saltar en la respuesta
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: number
-          format: int32
-          default: 0
-      - name: limite
-        in: query
-        description: La cantidad de registros a obtener
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: number
-          format: int32
-          default: 25
-      - name: filtro
-        in: query
-        description: La expresion por la cual se van a filtrar los resultados.
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Una lista con los varamientos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200'
-        "403":
-          description: El usuario no cuenta con los permisos necesarios para acceder
-            al recurso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-        "500":
-          description: Algo salio mal del lado del servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-      x-openapi-router-controller: swagger_server.controllers.negocio_controller
-    post:
-      tags:
-      - negocio
-      summary: Registra un negocio
-      description: Registra un negocio
-      operationId: registrar_negocio
-      requestBody:
-        description: Objeto negocio a registrar
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/negocio'
-      responses:
-        "201":
-          description: Negocio registrardo
-          headers:
-            Location:
-              description: URI del recurso creado
-              style: simple
-              explode: false
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/negocio'
-        "400":
-          description: Missing or wrong parameter
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-        "500":
-          description: Something went wrong
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-      security:
-      - bearerAuth: []
-      x-openapi-router-controller: swagger_server.controllers.negocio_controller
   /negocios/{negocioId}:
     get:
       tags:
@@ -362,7 +362,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/negocio'
+              $ref: '#/components/schemas/sucursal'
       responses:
         "201":
           description: Negocio registrardo
@@ -376,7 +376,58 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/negocio'
+                $ref: '#/components/schemas/sucursal'
+        "400":
+          description: Missing or wrong parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "500":
+          description: Something went wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - bearerAuth: []
+      x-openapi-router-controller: swagger_server.controllers.sucursal_controller
+  /negocios/{negocioId}/sucursales/{sucursalId}:
+    get:
+      tags:
+      - sucursal
+      summary: Obtiene una sucursal
+      description: Obtiene una sucursal
+      operationId: obtener_sucursal
+      parameters:
+      - name: negocioId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: sucursalId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "201":
+          description: Negocio registrardo
+          headers:
+            Location:
+              description: URI del recurso creado
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sucursal'
         "400":
           description: Missing or wrong parameter
           content:
@@ -403,58 +454,6 @@ components:
           example: XAG92
       example:
         token: XAG92
-    domicilio:
-      title: Domicilio
-      properties:
-        pais:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **pais** del usuario
-          example: México
-        estado:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **estado** dentro del país en donde se encuentra
-            el usuario
-          example: Veracruz
-        ciudad:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre de la **ciudad** en donde se encuentra el usuario
-          example: Veracruz
-        municipio:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **municipio** en donde se encuentra el usuario
-          example: Veracruz
-        calle:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: La **calle** del usuario
-          example: Calle de las rosas
-        numeroInterior:
-          maxLength: 4
-          minLength: 1
-          type: string
-          description: El **numeroInterior** del usuario
-          example: "12"
-        numeroExterior:
-          maxLength: 4
-          minLength: 1
-          type: string
-          description: El **numeroExterior** del usuario
-          example: "12"
-        colonia:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: La **coloina** del usuario
-          example: Lomas de casa blanca
     usuario:
       title: Usuario
       required:
@@ -465,6 +464,33 @@ components:
       - pais
       - telefono
       properties:
+        codigoAutenticacion:
+          type: string
+          description: El **token** requeriddo para la autenticación del usuario
+          example: XA902
+        contrasenia:
+          maxLength: 32
+          minLength: 8
+          type: string
+          description: "La **contrasena** es con la cual iniciara sesión el usuario,\
+            \ debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de\
+            \ tener _una letra mayuscula_, _una letra minuscula_ y _un digito_"
+          example: EjemploContrasena1.
+        correoElectronico:
+          maxLength: 255
+          minLength: 3
+          type: string
+          description: El **correoElectronico** del usuario que se busca registrar
+          example: investigador@ejemplo.com
+        edad:
+          minLength: 2
+          type: string
+          description: La **edad** del usuario
+          example: "34"
+        fechaNacimiento:
+          type: string
+          description: La **fechaNacimiento** del usuario que se busca registrar
+          format: date
         fotoPerfil:
           type: string
           description: Binary data of the media file
@@ -475,30 +501,6 @@ components:
           type: string
           description: El **nombre** de la persona registrada
           example: Pepe pecas
-        correoElectronico:
-          maxLength: 255
-          minLength: 3
-          type: string
-          description: El **correoElectronico** del usuario que se busca registrar
-          example: investigador@ejemplo.com
-        fechaNacimiento:
-          type: string
-          description: La **fechaNacimiento** del usuario que se busca registrar
-          format: date
-          example: 2017-07-21
-        contrasenia:
-          maxLength: 32
-          minLength: 8
-          type: string
-          description: "La **contrasena** es con la cual iniciara sesión el usuario,\
-            \ debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de\
-            \ tener _una letra mayuscula_, _una letra minuscula_ y _un digito_"
-          example: EjemploContrasena1.
-        edad:
-          minLength: 2
-          type: string
-          description: La **edad** del usuario
-          example: "34"
         telefono:
           maxLength: 10
           minLength: 10
@@ -555,22 +557,12 @@ components:
           description: La **coloina** del usuario
           example: Lomas de casa blanca
         aceptado:
-          maxLength: 9
-          minLength: 8
           type: string
-          description: "El campo **aceptado** es un Enum el cual indica si el usuario\
-            \ ha sido aceptado por el administrador del sistema y puede acceder al\
-            \ sistema. Los posibles valores para el enum son: ACEPTADO, RECHAZADO\
-            \ y EN_ESPERA"
-          example: RECHAZADO
-        token:
-          type: string
-          description: El **token** requeriddo para la autenticación del usuario
-          example: XA902
       example:
+        codigoAutenticacion: XA902
         estado: Veracruz
         fotoPerfil: ""
-        fechaNacimiento: 2017-07-21T00:00:00.000+00:00
+        fechaNacimiento: 2000-01-23
         municipio: Veracruz
         calle: Calle de las rosas
         numeroInterior: "12"
@@ -578,13 +570,21 @@ components:
         edad: "34"
         pais: México
         colonia: Lomas de casa blanca
-        token: XA902
-        aceptado: RECHAZADO
+        aceptado: aceptado
         ciudad: Veracruz
         contrasenia: EjemploContrasena1.
         numeroExterior: "12"
         telefono: "5536987896"
         correoElectronico: investigador@ejemplo.com
+    negocio-array:
+      title: Negocio array
+      properties:
+        negocioId:
+          type: integer
+        fotoPerfil:
+          type: string
+          description: Binary data of the media file
+          format: binary
     negocio:
       title: Negocio
       required:
@@ -632,17 +632,53 @@ components:
           example: https://www.instagram.com/wildflowercases/?hl=es
         tipoNegocio:
           type: string
-          enum:
-          - restaurante
-          - estetica
-          - salonDeBelleza
-          - barberia
-          - gimnasio
-          - otro
+        sucursales:
+          type: array
+          items:
+            $ref: '#/components/schemas/sucursal'
       example:
         whatsapp: "5536987896"
+        sucursales:
+        - estado: Veracruz
+          aforoTotal: 5.962133916683182377482808078639209270477294921875
+          municipio: Veracruz
+          sucursalId: 6
+          calle: Calle de las rosas
+          horarioCierre: horarioCierre
+          medidasSeguridad:
+          - medidasSeguridad
+          - medidasSeguridad
+          numeroInterior: "12"
+          pais: México
+          colonia: Lomas de casa blanca
+          aforoActual: 1.46581298050294517310021547018550336360931396484375
+          servicios:
+          - servicios
+          - servicios
+          ciudad: Veracruz
+          horarioApertura: horarioApertura
+          numeroExterior: "12"
+        - estado: Veracruz
+          aforoTotal: 5.962133916683182377482808078639209270477294921875
+          municipio: Veracruz
+          sucursalId: 6
+          calle: Calle de las rosas
+          horarioCierre: horarioCierre
+          medidasSeguridad:
+          - medidasSeguridad
+          - medidasSeguridad
+          numeroInterior: "12"
+          pais: México
+          colonia: Lomas de casa blanca
+          aforoActual: 1.46581298050294517310021547018550336360931396484375
+          servicios:
+          - servicios
+          - servicios
+          ciudad: Veracruz
+          horarioApertura: horarioApertura
+          numeroExterior: "12"
         fotoPerfil: ""
-        tipoNegocio: restaurante
+        tipoNegocio: tipoNegocio
         facebook: https://www.facebook.com/Mercadito-Gastron%C3%B3mico-Xalapa
         negocioId: 0
         instagram: https://www.instagram.com/wildflowercases/?hl=es
@@ -720,30 +756,33 @@ components:
           type: string
           format: datetime
         servicios:
-          type: string
-          enum:
-          - estacionamiento
-          - valetParking
-          - areaInfantil
-          - delivery
-          - paraLlevar
-          - areaAireLibre
-          - wifi
-          - reservaciones
+          type: array
+          items:
+            type: string
         medidasSeguridad:
-          type: string
-          enum:
-          - sanaDistancia
-          - tomaDeTemperatura
-          - trabajadoresConProteccion
-          - gelDesinfectante
-          - cubrebocasObligatorio
-          - aguaYJabonEnBaños
-          - desinfeccionDeSuperficies
-          - entradasYSalidasSeparadas
-          - sanitizacionDelEstablecimiento
-          - sanaDistanciaMarcadaEnFilas
-          - otra
+          type: array
+          items:
+            type: string
+      example:
+        estado: Veracruz
+        aforoTotal: 5.962133916683182377482808078639209270477294921875
+        municipio: Veracruz
+        sucursalId: 6
+        calle: Calle de las rosas
+        horarioCierre: horarioCierre
+        medidasSeguridad:
+        - medidasSeguridad
+        - medidasSeguridad
+        numeroInterior: "12"
+        pais: México
+        colonia: Lomas de casa blanca
+        aforoActual: 1.46581298050294517310021547018550336360931396484375
+        servicios:
+        - servicios
+        - servicios
+        ciudad: Veracruz
+        horarioApertura: horarioApertura
+        numeroExterior: "12"
     error:
       title: Error
       properties:
@@ -774,7 +813,7 @@ components:
         resultados:
           type: array
           items:
-            $ref: '#/components/schemas/negocio'
+            $ref: '#/components/schemas/negocio-array'
       example:
         resultados:
         - whatsapp: "5536987896"

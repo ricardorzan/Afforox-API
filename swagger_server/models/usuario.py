@@ -14,21 +14,23 @@ class Usuario(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, foto_perfil: str=None, nombre_completo: str=None, correo_electronico: str=None, fecha_nacimiento: date=None, contrasenia: str=None, edad: str=None, telefono: str=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aceptado: str=None, token: str=None):  # noqa: E501
+    def __init__(self, codigo_autenticacion: str=None, contrasenia: str=None, correo_electronico: str=None, edad: str=None, fecha_nacimiento: date=None, foto_perfil: str=None, nombre_completo: str=None, telefono: str=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aceptado: str=None):  # noqa: E501
         """Usuario - a model defined in Swagger
 
+        :param codigo_autenticacion: The codigo_autenticacion of this Usuario.  # noqa: E501
+        :type codigo_autenticacion: str
+        :param contrasenia: The contrasenia of this Usuario.  # noqa: E501
+        :type contrasenia: str
+        :param correo_electronico: The correo_electronico of this Usuario.  # noqa: E501
+        :type correo_electronico: str
+        :param edad: The edad of this Usuario.  # noqa: E501
+        :type edad: str
+        :param fecha_nacimiento: The fecha_nacimiento of this Usuario.  # noqa: E501
+        :type fecha_nacimiento: date
         :param foto_perfil: The foto_perfil of this Usuario.  # noqa: E501
         :type foto_perfil: str
         :param nombre_completo: The nombre_completo of this Usuario.  # noqa: E501
         :type nombre_completo: str
-        :param correo_electronico: The correo_electronico of this Usuario.  # noqa: E501
-        :type correo_electronico: str
-        :param fecha_nacimiento: The fecha_nacimiento of this Usuario.  # noqa: E501
-        :type fecha_nacimiento: date
-        :param contrasenia: The contrasenia of this Usuario.  # noqa: E501
-        :type contrasenia: str
-        :param edad: The edad of this Usuario.  # noqa: E501
-        :type edad: str
         :param telefono: The telefono of this Usuario.  # noqa: E501
         :type telefono: str
         :param pais: The pais of this Usuario.  # noqa: E501
@@ -49,16 +51,15 @@ class Usuario(Model):
         :type colonia: str
         :param aceptado: The aceptado of this Usuario.  # noqa: E501
         :type aceptado: str
-        :param token: The token of this Usuario.  # noqa: E501
-        :type token: str
         """
         self.swagger_types = {
+            'codigo_autenticacion': str,
+            'contrasenia': str,
+            'correo_electronico': str,
+            'edad': str,
+            'fecha_nacimiento': date,
             'foto_perfil': str,
             'nombre_completo': str,
-            'correo_electronico': str,
-            'fecha_nacimiento': date,
-            'contrasenia': str,
-            'edad': str,
             'telefono': str,
             'pais': str,
             'estado': str,
@@ -68,17 +69,17 @@ class Usuario(Model):
             'numero_interior': str,
             'numero_exterior': str,
             'colonia': str,
-            'aceptado': str,
-            'token': str
+            'aceptado': str
         }
 
         self.attribute_map = {
+            'codigo_autenticacion': 'codigoAutenticacion',
+            'contrasenia': 'contrasenia',
+            'correo_electronico': 'correoElectronico',
+            'edad': 'edad',
+            'fecha_nacimiento': 'fechaNacimiento',
             'foto_perfil': 'fotoPerfil',
             'nombre_completo': 'nombreCompleto',
-            'correo_electronico': 'correoElectronico',
-            'fecha_nacimiento': 'fechaNacimiento',
-            'contrasenia': 'contrasenia',
-            'edad': 'edad',
             'telefono': 'telefono',
             'pais': 'pais',
             'estado': 'estado',
@@ -88,15 +89,15 @@ class Usuario(Model):
             'numero_interior': 'numeroInterior',
             'numero_exterior': 'numeroExterior',
             'colonia': 'colonia',
-            'aceptado': 'aceptado',
-            'token': 'token'
+            'aceptado': 'aceptado'
         }
+        self._codigo_autenticacion = codigo_autenticacion
+        self._contrasenia = contrasenia
+        self._correo_electronico = correo_electronico
+        self._edad = edad
+        self._fecha_nacimiento = fecha_nacimiento
         self._foto_perfil = foto_perfil
         self._nombre_completo = nombre_completo
-        self._correo_electronico = correo_electronico
-        self._fecha_nacimiento = fecha_nacimiento
-        self._contrasenia = contrasenia
-        self._edad = edad
         self._telefono = telefono
         self._pais = pais
         self._estado = estado
@@ -107,7 +108,6 @@ class Usuario(Model):
         self._numero_exterior = numero_exterior
         self._colonia = colonia
         self._aceptado = aceptado
-        self._token = token
 
     @classmethod
     def from_dict(cls, dikt) -> 'Usuario':
@@ -119,6 +119,125 @@ class Usuario(Model):
         :rtype: Usuario
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def codigo_autenticacion(self) -> str:
+        """Gets the codigo_autenticacion of this Usuario.
+
+        El **token** requeriddo para la autenticación del usuario  # noqa: E501
+
+        :return: The codigo_autenticacion of this Usuario.
+        :rtype: str
+        """
+        return self._codigo_autenticacion
+
+    @codigo_autenticacion.setter
+    def codigo_autenticacion(self, codigo_autenticacion: str):
+        """Sets the codigo_autenticacion of this Usuario.
+
+        El **token** requeriddo para la autenticación del usuario  # noqa: E501
+
+        :param codigo_autenticacion: The codigo_autenticacion of this Usuario.
+        :type codigo_autenticacion: str
+        """
+
+        self._codigo_autenticacion = codigo_autenticacion
+
+    @property
+    def contrasenia(self) -> str:
+        """Gets the contrasenia of this Usuario.
+
+        La **contrasena** es con la cual iniciara sesión el usuario, debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de tener _una letra mayuscula_, _una letra minuscula_ y _un digito_  # noqa: E501
+
+        :return: The contrasenia of this Usuario.
+        :rtype: str
+        """
+        return self._contrasenia
+
+    @contrasenia.setter
+    def contrasenia(self, contrasenia: str):
+        """Sets the contrasenia of this Usuario.
+
+        La **contrasena** es con la cual iniciara sesión el usuario, debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de tener _una letra mayuscula_, _una letra minuscula_ y _un digito_  # noqa: E501
+
+        :param contrasenia: The contrasenia of this Usuario.
+        :type contrasenia: str
+        """
+        if contrasenia is None:
+            raise ValueError("Invalid value for `contrasenia`, must not be `None`")  # noqa: E501
+
+        self._contrasenia = contrasenia
+
+    @property
+    def correo_electronico(self) -> str:
+        """Gets the correo_electronico of this Usuario.
+
+        El **correoElectronico** del usuario que se busca registrar  # noqa: E501
+
+        :return: The correo_electronico of this Usuario.
+        :rtype: str
+        """
+        return self._correo_electronico
+
+    @correo_electronico.setter
+    def correo_electronico(self, correo_electronico: str):
+        """Sets the correo_electronico of this Usuario.
+
+        El **correoElectronico** del usuario que se busca registrar  # noqa: E501
+
+        :param correo_electronico: The correo_electronico of this Usuario.
+        :type correo_electronico: str
+        """
+        if correo_electronico is None:
+            raise ValueError("Invalid value for `correo_electronico`, must not be `None`")  # noqa: E501
+
+        self._correo_electronico = correo_electronico
+
+    @property
+    def edad(self) -> str:
+        """Gets the edad of this Usuario.
+
+        La **edad** del usuario  # noqa: E501
+
+        :return: The edad of this Usuario.
+        :rtype: str
+        """
+        return self._edad
+
+    @edad.setter
+    def edad(self, edad: str):
+        """Sets the edad of this Usuario.
+
+        La **edad** del usuario  # noqa: E501
+
+        :param edad: The edad of this Usuario.
+        :type edad: str
+        """
+
+        self._edad = edad
+
+    @property
+    def fecha_nacimiento(self) -> date:
+        """Gets the fecha_nacimiento of this Usuario.
+
+        La **fechaNacimiento** del usuario que se busca registrar  # noqa: E501
+
+        :return: The fecha_nacimiento of this Usuario.
+        :rtype: date
+        """
+        return self._fecha_nacimiento
+
+    @fecha_nacimiento.setter
+    def fecha_nacimiento(self, fecha_nacimiento: date):
+        """Sets the fecha_nacimiento of this Usuario.
+
+        La **fechaNacimiento** del usuario que se busca registrar  # noqa: E501
+
+        :param fecha_nacimiento: The fecha_nacimiento of this Usuario.
+        :type fecha_nacimiento: date
+        """
+
+        self._fecha_nacimiento = fecha_nacimiento
 
     @property
     def foto_perfil(self) -> str:
@@ -167,102 +286,6 @@ class Usuario(Model):
             raise ValueError("Invalid value for `nombre_completo`, must not be `None`")  # noqa: E501
 
         self._nombre_completo = nombre_completo
-
-    @property
-    def correo_electronico(self) -> str:
-        """Gets the correo_electronico of this Usuario.
-
-        El **correoElectronico** del usuario que se busca registrar  # noqa: E501
-
-        :return: The correo_electronico of this Usuario.
-        :rtype: str
-        """
-        return self._correo_electronico
-
-    @correo_electronico.setter
-    def correo_electronico(self, correo_electronico: str):
-        """Sets the correo_electronico of this Usuario.
-
-        El **correoElectronico** del usuario que se busca registrar  # noqa: E501
-
-        :param correo_electronico: The correo_electronico of this Usuario.
-        :type correo_electronico: str
-        """
-        if correo_electronico is None:
-            raise ValueError("Invalid value for `correo_electronico`, must not be `None`")  # noqa: E501
-
-        self._correo_electronico = correo_electronico
-
-    @property
-    def fecha_nacimiento(self) -> date:
-        """Gets the fecha_nacimiento of this Usuario.
-
-        La **fechaNacimiento** del usuario que se busca registrar  # noqa: E501
-
-        :return: The fecha_nacimiento of this Usuario.
-        :rtype: date
-        """
-        return self._fecha_nacimiento
-
-    @fecha_nacimiento.setter
-    def fecha_nacimiento(self, fecha_nacimiento: date):
-        """Sets the fecha_nacimiento of this Usuario.
-
-        La **fechaNacimiento** del usuario que se busca registrar  # noqa: E501
-
-        :param fecha_nacimiento: The fecha_nacimiento of this Usuario.
-        :type fecha_nacimiento: date
-        """
-
-        self._fecha_nacimiento = fecha_nacimiento
-
-    @property
-    def contrasenia(self) -> str:
-        """Gets the contrasenia of this Usuario.
-
-        La **contrasena** es con la cual iniciara sesión el usuario, debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de tener _una letra mayuscula_, _una letra minuscula_ y _un digito_  # noqa: E501
-
-        :return: The contrasenia of this Usuario.
-        :rtype: str
-        """
-        return self._contrasenia
-
-    @contrasenia.setter
-    def contrasenia(self, contrasenia: str):
-        """Sets the contrasenia of this Usuario.
-
-        La **contrasena** es con la cual iniciara sesión el usuario, debe de tener una _longitud_ entre _8_ y _32_ y por lo menos debe de tener _una letra mayuscula_, _una letra minuscula_ y _un digito_  # noqa: E501
-
-        :param contrasenia: The contrasenia of this Usuario.
-        :type contrasenia: str
-        """
-        if contrasenia is None:
-            raise ValueError("Invalid value for `contrasenia`, must not be `None`")  # noqa: E501
-
-        self._contrasenia = contrasenia
-
-    @property
-    def edad(self) -> str:
-        """Gets the edad of this Usuario.
-
-        La **edad** del usuario  # noqa: E501
-
-        :return: The edad of this Usuario.
-        :rtype: str
-        """
-        return self._edad
-
-    @edad.setter
-    def edad(self, edad: str):
-        """Sets the edad of this Usuario.
-
-        La **edad** del usuario  # noqa: E501
-
-        :param edad: The edad of this Usuario.
-        :type edad: str
-        """
-
-        self._edad = edad
 
     @property
     def telefono(self) -> str:
@@ -481,7 +504,6 @@ class Usuario(Model):
     def aceptado(self) -> str:
         """Gets the aceptado of this Usuario.
 
-        El campo **aceptado** es un Enum el cual indica si el usuario ha sido aceptado por el administrador del sistema y puede acceder al sistema. Los posibles valores para el enum son: ACEPTADO, RECHAZADO y EN_ESPERA  # noqa: E501
 
         :return: The aceptado of this Usuario.
         :rtype: str
@@ -492,33 +514,9 @@ class Usuario(Model):
     def aceptado(self, aceptado: str):
         """Sets the aceptado of this Usuario.
 
-        El campo **aceptado** es un Enum el cual indica si el usuario ha sido aceptado por el administrador del sistema y puede acceder al sistema. Los posibles valores para el enum son: ACEPTADO, RECHAZADO y EN_ESPERA  # noqa: E501
 
         :param aceptado: The aceptado of this Usuario.
         :type aceptado: str
         """
 
         self._aceptado = aceptado
-
-    @property
-    def token(self) -> str:
-        """Gets the token of this Usuario.
-
-        El **token** requeriddo para la autenticación del usuario  # noqa: E501
-
-        :return: The token of this Usuario.
-        :rtype: str
-        """
-        return self._token
-
-    @token.setter
-    def token(self, token: str):
-        """Sets the token of this Usuario.
-
-        El **token** requeriddo para la autenticación del usuario  # noqa: E501
-
-        :param token: The token of this Usuario.
-        :type token: str
-        """
-
-        self._token = token

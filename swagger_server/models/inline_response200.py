@@ -7,7 +7,7 @@ from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
 from swagger_server.models.inline_response200_paginacion import InlineResponse200Paginacion  # noqa: F401,E501
-from swagger_server.models.negocio import Negocio  # noqa: F401,E501
+from swagger_server.models.negocio_array import NegocioArray  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -16,17 +16,17 @@ class InlineResponse200(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, paginacion: InlineResponse200Paginacion=None, resultados: List[Negocio]=None):  # noqa: E501
+    def __init__(self, paginacion: InlineResponse200Paginacion=None, resultados: List[NegocioArray]=None):  # noqa: E501
         """InlineResponse200 - a model defined in Swagger
 
         :param paginacion: The paginacion of this InlineResponse200.  # noqa: E501
         :type paginacion: InlineResponse200Paginacion
         :param resultados: The resultados of this InlineResponse200.  # noqa: E501
-        :type resultados: List[Negocio]
+        :type resultados: List[NegocioArray]
         """
         self.swagger_types = {
             'paginacion': InlineResponse200Paginacion,
-            'resultados': List[Negocio]
+            'resultados': List[NegocioArray]
         }
 
         self.attribute_map = {
@@ -69,22 +69,22 @@ class InlineResponse200(Model):
         self._paginacion = paginacion
 
     @property
-    def resultados(self) -> List[Negocio]:
+    def resultados(self) -> List[NegocioArray]:
         """Gets the resultados of this InlineResponse200.
 
 
         :return: The resultados of this InlineResponse200.
-        :rtype: List[Negocio]
+        :rtype: List[NegocioArray]
         """
         return self._resultados
 
     @resultados.setter
-    def resultados(self, resultados: List[Negocio]):
+    def resultados(self, resultados: List[NegocioArray]):
         """Sets the resultados of this InlineResponse200.
 
 
         :param resultados: The resultados of this InlineResponse200.
-        :type resultados: List[Negocio]
+        :type resultados: List[NegocioArray]
         """
 
         self._resultados = resultados
