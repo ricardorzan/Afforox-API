@@ -246,7 +246,6 @@ CREATE TABLE Usuario
 ;
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
-
 ALTER TABLE Dia
     ADD CONSTRAINT PK_Dia
         PRIMARY KEY (DiaID)

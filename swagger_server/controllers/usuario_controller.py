@@ -1,14 +1,21 @@
+import string
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from http import HTTPStatus
+import random
+from smtplib import SMTP
 
 import connexion
 import six
 from flask import Response
+from flask_jwt_extended import create_access_token
 from peewee import DoesNotExist
 
 from swagger_server.data.dbmodel import (
     database,
     Usuario as UsuarioDB,
-    Domicilio as DomicilioDB
+    Domicilio as DomicilioDB,
+    Aceptado as AceptadoDB
 )
 from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.token import Token  # noqa: E501
@@ -41,22 +48,48 @@ def login(username, password):  # noqa: E501
 
     :rtype: Token
     """
-    if connexion.request.is_json:
-        password = str.from_dict(connexion.request.get_json())  # noqa: E501
     response = Response(status=HTTPStatus.NOT_FOUND.value)
     database.connect()
     try:
         user = UsuarioDB.get(UsuarioDB.correoelectronico == username)
         if (user.contrasenia == password):
-            if (user.aceptadoid == 1):
-                response = Response(status=HTTPStatus.OK.value)
+            if (user.aceptadoid == AceptadoDB.get_by_id(1)):
+                acces_token = create_access_token(identity=username)
+                response = Response(acces_token, status=HTTPStatus.OK.value)
+            else:
+                response = Response(status=HTTPStatus.UNAUTHORIZED.value)
         else:
-            response = Response(status=HTTPStatus.UNAUTHORIZED.value)
+            response = Response(status=HTTPStatus.FORBIDDEN.value)
     except DoesNotExist:
         response = Response(status=HTTPStatus.NOT_FOUND.value)
     finally:
         database.close()
     return response
+
+
+def send_validationToken_email(username, nombrecompleto, token):
+    employexEmail = "employexapp@gmail.com"
+    message = MIMEMultipart("plain")
+    message["From"] = "employexapp@gmail.com"
+    message["To"] = username
+    message["Subject"] = "Codigo de verificación Afforox"
+    body = "Bienvenido a Afforox " + nombrecompleto + ", su código de verificacion es: " + token
+    body = MIMEText(body)
+    message.attach(body)
+
+    smtp = SMTP("smtp.gmail.com", 587)
+    smtp.starttls()
+    smtp.login(employexEmail, "Jinchuriki2k")
+    smtp.sendmail(employexEmail, username, message.as_string())
+    smtp.quit()
+
+
+def tokenGenerator():
+    token = ''
+    for x in range(0, 3):
+        token = token + random.choice(string.digits)
+        token = token + random.choice(string.ascii_uppercase)
+    return token
 
 
 def nuevo_token(username):  # noqa: E501
@@ -69,7 +102,19 @@ def nuevo_token(username):  # noqa: E501
 
     :rtype: Token
     """
-    return 'do some magic!'
+    database.connect()
+    try:
+        user = UsuarioDB.get(UsuarioDB.correoelectronico == username)
+        token = tokenGenerator()
+        user.codigoautenticacion = token
+        user.save()
+        send_validationToken_email(username, user.nombrecompleto, token)
+        response = Response(status=HTTPStatus.OK)
+    except DoesNotExist:
+        response = Response(status=HTTPStatus.NOT_FOUND.value)
+    finally:
+        database.close()
+    return response
 
 
 def patch_usuario(body, usuario_id):  # noqa: E501
@@ -106,31 +151,29 @@ def registrar_usuario(body=None):  # noqa: E501
     if list_accounts.exists():
         return response
     else:
-        postedDomicilio = DomicilioDB.create(
-            calle=body.calle,
-            ciudad=body.ciudad,
-            colonia=body.colonia,
-            estado=body.estado,
-            municipio=body.municipio,
-            numeroexterior=body.numero_exterior,
-            numerointerior=body.numero_interior,
-            pais=body.pais
-        )
-        postedDomicilio.save()
-        '''Modificar el codigoautenticacion'''
         postedUser = UsuarioDB.create(
-            aceptadoid=2,
-            codigoautenticacion='XJ034',
+            aceptadoid=3,
+            codigoautenticacion=tokenGenerator(),
             contrasenia=body.contrasenia,
             correoelectronico=body.correo_electronico,
             edad=body.edad,
             fechanacimiento=body.fecha_nacimiento,
             fotoperfil=body.foto_perfil,
             nombrecompleto=body.nombre_completo,
-            telefono=body.telefono
+            telefono=body.telefono,
+            domicilioid=DomicilioDB.create(
+                calle=body.calle,
+                ciudad=body.ciudad,
+                colonia=body.colonia,
+                estado=body.estado,
+                municipio=body.municipio,
+                numeroexterior=body.numero_exterior,
+                numerointerior=body.numero_interior,
+                pais=body.pais
+            )
         )
-        postedUser.domicilioid = postedDomicilio
-        postedUser.save()
+        send_validationToken_email(postedUser.correoelectronico, postedUser.nombrecompleto,
+                                   postedUser.codigoautenticacion)
         response = Response(status=HTTPStatus.CREATED.value)
     return response
 
@@ -147,4 +190,19 @@ def validar_usuario(username, token):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    database.connect()
+    try:
+        user = UsuarioDB.get_by_id(username)
+        if user.aceptadoid == AceptadoDB.get_by_id(3):
+            if (user.codigoautenticacion == token):
+                (UsuarioDB.update({UsuarioDB.aceptadoid: 1}).where(UsuarioDB.correoelectronico == username)).execute()
+                response = Response(status=HTTPStatus.OK.value)
+            else:
+                response = Response(status=HTTPStatus.UNAUTHORIZED.value)
+        else:
+            response = Response(status=HTTPStatus.FORBIDDEN.value)
+    except DoesNotExist:
+        response = Response(status=HTTPStatus.NOT_FOUND.value)
+    finally:
+        database.close()
+    return response
