@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.domicilio import Domicilio  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -14,7 +15,7 @@ class Usuario(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, codigo_autenticacion: str=None, contrasenia: str=None, correo_electronico: str=None, edad: str=None, fecha_nacimiento: date=None, foto_perfil: str=None, nombre_completo: str=None, telefono: str=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aceptado: str=None):  # noqa: E501
+    def __init__(self, codigo_autenticacion: str=None, contrasenia: str=None, correo_electronico: str=None, edad: str=None, fecha_nacimiento: date=None, foto_perfil: str=None, nombre_completo: str=None, telefono: str=None, aceptado: str=None, domicilio: Domicilio=None):  # noqa: E501
         """Usuario - a model defined in Swagger
 
         :param codigo_autenticacion: The codigo_autenticacion of this Usuario.  # noqa: E501
@@ -33,24 +34,10 @@ class Usuario(Model):
         :type nombre_completo: str
         :param telefono: The telefono of this Usuario.  # noqa: E501
         :type telefono: str
-        :param pais: The pais of this Usuario.  # noqa: E501
-        :type pais: str
-        :param estado: The estado of this Usuario.  # noqa: E501
-        :type estado: str
-        :param ciudad: The ciudad of this Usuario.  # noqa: E501
-        :type ciudad: str
-        :param municipio: The municipio of this Usuario.  # noqa: E501
-        :type municipio: str
-        :param calle: The calle of this Usuario.  # noqa: E501
-        :type calle: str
-        :param numero_interior: The numero_interior of this Usuario.  # noqa: E501
-        :type numero_interior: str
-        :param numero_exterior: The numero_exterior of this Usuario.  # noqa: E501
-        :type numero_exterior: str
-        :param colonia: The colonia of this Usuario.  # noqa: E501
-        :type colonia: str
         :param aceptado: The aceptado of this Usuario.  # noqa: E501
         :type aceptado: str
+        :param domicilio: The domicilio of this Usuario.  # noqa: E501
+        :type domicilio: Domicilio
         """
         self.swagger_types = {
             'codigo_autenticacion': str,
@@ -61,15 +48,8 @@ class Usuario(Model):
             'foto_perfil': str,
             'nombre_completo': str,
             'telefono': str,
-            'pais': str,
-            'estado': str,
-            'ciudad': str,
-            'municipio': str,
-            'calle': str,
-            'numero_interior': str,
-            'numero_exterior': str,
-            'colonia': str,
-            'aceptado': str
+            'aceptado': str,
+            'domicilio': Domicilio
         }
 
         self.attribute_map = {
@@ -81,15 +61,8 @@ class Usuario(Model):
             'foto_perfil': 'fotoPerfil',
             'nombre_completo': 'nombreCompleto',
             'telefono': 'telefono',
-            'pais': 'pais',
-            'estado': 'estado',
-            'ciudad': 'ciudad',
-            'municipio': 'municipio',
-            'calle': 'calle',
-            'numero_interior': 'numeroInterior',
-            'numero_exterior': 'numeroExterior',
-            'colonia': 'colonia',
-            'aceptado': 'aceptado'
+            'aceptado': 'aceptado',
+            'domicilio': 'domicilio'
         }
         self._codigo_autenticacion = codigo_autenticacion
         self._contrasenia = contrasenia
@@ -99,15 +72,8 @@ class Usuario(Model):
         self._foto_perfil = foto_perfil
         self._nombre_completo = nombre_completo
         self._telefono = telefono
-        self._pais = pais
-        self._estado = estado
-        self._ciudad = ciudad
-        self._municipio = municipio
-        self._calle = calle
-        self._numero_interior = numero_interior
-        self._numero_exterior = numero_exterior
-        self._colonia = colonia
         self._aceptado = aceptado
+        self._domicilio = domicilio
 
     @classmethod
     def from_dict(cls, dikt) -> 'Usuario':
@@ -313,194 +279,6 @@ class Usuario(Model):
         self._telefono = telefono
 
     @property
-    def pais(self) -> str:
-        """Gets the pais of this Usuario.
-
-        El nombre del **pais** del usuario  # noqa: E501
-
-        :return: The pais of this Usuario.
-        :rtype: str
-        """
-        return self._pais
-
-    @pais.setter
-    def pais(self, pais: str):
-        """Sets the pais of this Usuario.
-
-        El nombre del **pais** del usuario  # noqa: E501
-
-        :param pais: The pais of this Usuario.
-        :type pais: str
-        """
-        if pais is None:
-            raise ValueError("Invalid value for `pais`, must not be `None`")  # noqa: E501
-
-        self._pais = pais
-
-    @property
-    def estado(self) -> str:
-        """Gets the estado of this Usuario.
-
-        El nombre del **estado** dentro del país en donde se encuentra el usuario  # noqa: E501
-
-        :return: The estado of this Usuario.
-        :rtype: str
-        """
-        return self._estado
-
-    @estado.setter
-    def estado(self, estado: str):
-        """Sets the estado of this Usuario.
-
-        El nombre del **estado** dentro del país en donde se encuentra el usuario  # noqa: E501
-
-        :param estado: The estado of this Usuario.
-        :type estado: str
-        """
-        if estado is None:
-            raise ValueError("Invalid value for `estado`, must not be `None`")  # noqa: E501
-
-        self._estado = estado
-
-    @property
-    def ciudad(self) -> str:
-        """Gets the ciudad of this Usuario.
-
-        El nombre de la **ciudad** en donde se encuentra el usuario  # noqa: E501
-
-        :return: The ciudad of this Usuario.
-        :rtype: str
-        """
-        return self._ciudad
-
-    @ciudad.setter
-    def ciudad(self, ciudad: str):
-        """Sets the ciudad of this Usuario.
-
-        El nombre de la **ciudad** en donde se encuentra el usuario  # noqa: E501
-
-        :param ciudad: The ciudad of this Usuario.
-        :type ciudad: str
-        """
-
-        self._ciudad = ciudad
-
-    @property
-    def municipio(self) -> str:
-        """Gets the municipio of this Usuario.
-
-        El nombre del **municipio** en donde se encuentra el usuario  # noqa: E501
-
-        :return: The municipio of this Usuario.
-        :rtype: str
-        """
-        return self._municipio
-
-    @municipio.setter
-    def municipio(self, municipio: str):
-        """Sets the municipio of this Usuario.
-
-        El nombre del **municipio** en donde se encuentra el usuario  # noqa: E501
-
-        :param municipio: The municipio of this Usuario.
-        :type municipio: str
-        """
-
-        self._municipio = municipio
-
-    @property
-    def calle(self) -> str:
-        """Gets the calle of this Usuario.
-
-        La **calle** del usuario  # noqa: E501
-
-        :return: The calle of this Usuario.
-        :rtype: str
-        """
-        return self._calle
-
-    @calle.setter
-    def calle(self, calle: str):
-        """Sets the calle of this Usuario.
-
-        La **calle** del usuario  # noqa: E501
-
-        :param calle: The calle of this Usuario.
-        :type calle: str
-        """
-
-        self._calle = calle
-
-    @property
-    def numero_interior(self) -> str:
-        """Gets the numero_interior of this Usuario.
-
-        El **numeroInterior** del usuario  # noqa: E501
-
-        :return: The numero_interior of this Usuario.
-        :rtype: str
-        """
-        return self._numero_interior
-
-    @numero_interior.setter
-    def numero_interior(self, numero_interior: str):
-        """Sets the numero_interior of this Usuario.
-
-        El **numeroInterior** del usuario  # noqa: E501
-
-        :param numero_interior: The numero_interior of this Usuario.
-        :type numero_interior: str
-        """
-
-        self._numero_interior = numero_interior
-
-    @property
-    def numero_exterior(self) -> str:
-        """Gets the numero_exterior of this Usuario.
-
-        El **numeroExterior** del usuario  # noqa: E501
-
-        :return: The numero_exterior of this Usuario.
-        :rtype: str
-        """
-        return self._numero_exterior
-
-    @numero_exterior.setter
-    def numero_exterior(self, numero_exterior: str):
-        """Sets the numero_exterior of this Usuario.
-
-        El **numeroExterior** del usuario  # noqa: E501
-
-        :param numero_exterior: The numero_exterior of this Usuario.
-        :type numero_exterior: str
-        """
-
-        self._numero_exterior = numero_exterior
-
-    @property
-    def colonia(self) -> str:
-        """Gets the colonia of this Usuario.
-
-        La **coloina** del usuario  # noqa: E501
-
-        :return: The colonia of this Usuario.
-        :rtype: str
-        """
-        return self._colonia
-
-    @colonia.setter
-    def colonia(self, colonia: str):
-        """Sets the colonia of this Usuario.
-
-        La **coloina** del usuario  # noqa: E501
-
-        :param colonia: The colonia of this Usuario.
-        :type colonia: str
-        """
-
-        self._colonia = colonia
-
-    @property
     def aceptado(self) -> str:
         """Gets the aceptado of this Usuario.
 
@@ -520,3 +298,24 @@ class Usuario(Model):
         """
 
         self._aceptado = aceptado
+
+    @property
+    def domicilio(self) -> Domicilio:
+        """Gets the domicilio of this Usuario.
+
+
+        :return: The domicilio of this Usuario.
+        :rtype: Domicilio
+        """
+        return self._domicilio
+
+    @domicilio.setter
+    def domicilio(self, domicilio: Domicilio):
+        """Sets the domicilio of this Usuario.
+
+
+        :param domicilio: The domicilio of this Usuario.
+        :type domicilio: Domicilio
+        """
+
+        self._domicilio = domicilio

@@ -162,14 +162,14 @@ def registrar_usuario(body=None):  # noqa: E501
             nombrecompleto=body.nombre_completo,
             telefono=body.telefono,
             domicilioid=DomicilioDB.create(
-                calle=body.calle,
-                ciudad=body.ciudad,
-                colonia=body.colonia,
-                estado=body.estado,
-                municipio=body.municipio,
-                numeroexterior=body.numero_exterior,
-                numerointerior=body.numero_interior,
-                pais=body.pais
+                calle=body.domicilio.calle,
+                ciudad=body.domicilio.ciudad,
+                colonia=body.domicilio.colonia,
+                estado=body.domicilio.estado,
+                municipio=body.domicilio.municipio,
+                numeroexterior=body.domicilio.numero_exterior,
+                numerointerior=body.domicilio.numero_interior,
+                pais=body.domicilio.pais
             )
         )
         send_validationToken_email(postedUser.correoelectronico, postedUser.nombrecompleto,

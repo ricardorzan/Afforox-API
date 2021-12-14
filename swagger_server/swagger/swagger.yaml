@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.0
 info:
   title: Afforox
   description: This is a sample API that allows to manage Afforox system.
@@ -459,9 +459,7 @@ components:
       required:
       - contrasenia
       - correoElectronico
-      - estado
       - nombreCompleto
-      - pais
       - telefono
       properties:
         codigoAutenticacion:
@@ -507,75 +505,30 @@ components:
           type: string
           description: El **telefono** del usuario
           example: "5536987896"
-        pais:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **pais** del usuario
-          example: México
-        estado:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **estado** dentro del país en donde se encuentra
-            el usuario
-          example: Veracruz
-        ciudad:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre de la **ciudad** en donde se encuentra el usuario
-          example: Veracruz
-        municipio:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: El nombre del **municipio** en donde se encuentra el usuario
-          example: Veracruz
-        calle:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: La **calle** del usuario
-          example: Calle de las rosas
-        numeroInterior:
-          maxLength: 4
-          minLength: 1
-          type: string
-          description: El **numeroInterior** del usuario
-          example: "12"
-        numeroExterior:
-          maxLength: 4
-          minLength: 1
-          type: string
-          description: El **numeroExterior** del usuario
-          example: "12"
-        colonia:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: La **coloina** del usuario
-          example: Lomas de casa blanca
         aceptado:
           type: string
+        domicilio:
+          $ref: '#/components/schemas/domicilio'
       example:
         codigoAutenticacion: XA902
-        estado: Veracruz
-        fotoPerfil: ""
-        fechaNacimiento: 2000-01-23
-        municipio: Veracruz
-        calle: Calle de las rosas
-        numeroInterior: "12"
-        nombreCompleto: Pepe pecas
-        edad: "34"
-        pais: México
-        colonia: Lomas de casa blanca
         aceptado: aceptado
-        ciudad: Veracruz
+        fotoPerfil: ""
+        domicilio:
+          estado: Veracruz
+          domicilioId: 0
+          ciudad: Veracruz
+          municipio: Veracruz
+          calle: Calle de las rosas
+          numeroExterior: "12"
+          numeroInterior: "12"
+          pais: México
+          colonia: Lomas de casa blanca
+        fechaNacimiento: 2000-01-23
         contrasenia: EjemploContrasena1.
-        numeroExterior: "12"
+        nombreCompleto: Pepe pecas
         telefono: "5536987896"
         correoElectronico: investigador@ejemplo.com
+        edad: "34"
     negocio-array:
       title: Negocio array
       properties:
@@ -639,44 +592,62 @@ components:
       example:
         whatsapp: "5536987896"
         sucursales:
-        - estado: Veracruz
-          aforoTotal: 5.962133916683182377482808078639209270477294921875
-          municipio: Veracruz
-          sucursalId: 6
-          calle: Calle de las rosas
-          horarioCierre: horarioCierre
-          medidasSeguridad:
-          - medidasSeguridad
-          - medidasSeguridad
-          numeroInterior: "12"
-          pais: México
-          colonia: Lomas de casa blanca
-          aforoActual: 1.46581298050294517310021547018550336360931396484375
+        - aforoActual: 1.46581298050294517310021547018550336360931396484375
           servicios:
           - servicios
           - servicios
-          ciudad: Veracruz
-          horarioApertura: horarioApertura
-          numeroExterior: "12"
-        - estado: Veracruz
           aforoTotal: 5.962133916683182377482808078639209270477294921875
-          municipio: Veracruz
+          domicilio:
+            estado: Veracruz
+            domicilioId: 0
+            ciudad: Veracruz
+            municipio: Veracruz
+            calle: Calle de las rosas
+            numeroExterior: "12"
+            numeroInterior: "12"
+            pais: México
+            colonia: Lomas de casa blanca
+          horarios:
+          - horarioApertura: horarioApertura
+            horarioCierre: horarioCierre
+            dia: dia
+            horarioId: 5
+          - horarioApertura: horarioApertura
+            horarioCierre: horarioCierre
+            dia: dia
+            horarioId: 5
           sucursalId: 6
-          calle: Calle de las rosas
-          horarioCierre: horarioCierre
           medidasSeguridad:
           - medidasSeguridad
           - medidasSeguridad
-          numeroInterior: "12"
-          pais: México
-          colonia: Lomas de casa blanca
-          aforoActual: 1.46581298050294517310021547018550336360931396484375
+        - aforoActual: 1.46581298050294517310021547018550336360931396484375
           servicios:
           - servicios
           - servicios
-          ciudad: Veracruz
-          horarioApertura: horarioApertura
-          numeroExterior: "12"
+          aforoTotal: 5.962133916683182377482808078639209270477294921875
+          domicilio:
+            estado: Veracruz
+            domicilioId: 0
+            ciudad: Veracruz
+            municipio: Veracruz
+            calle: Calle de las rosas
+            numeroExterior: "12"
+            numeroInterior: "12"
+            pais: México
+            colonia: Lomas de casa blanca
+          horarios:
+          - horarioApertura: horarioApertura
+            horarioCierre: horarioCierre
+            dia: dia
+            horarioId: 5
+          - horarioApertura: horarioApertura
+            horarioCierre: horarioCierre
+            dia: dia
+            horarioId: 5
+          sucursalId: 6
+          medidasSeguridad:
+          - medidasSeguridad
+          - medidasSeguridad
         fotoPerfil: ""
         tipoNegocio: tipoNegocio
         facebook: https://www.facebook.com/Mercadito-Gastron%C3%B3mico-Xalapa
@@ -689,10 +660,80 @@ components:
       title: Sucursal
       required:
       - aforoTotal
-      - estado
-      - pais
       properties:
         sucursalId:
+          type: integer
+        aforoActual:
+          type: number
+          format: int32
+        aforoTotal:
+          type: number
+          format: int32
+        servicios:
+          type: array
+          items:
+            type: string
+        medidasSeguridad:
+          type: array
+          items:
+            type: string
+        domicilio:
+          $ref: '#/components/schemas/domicilio'
+        horarios:
+          type: array
+          items:
+            $ref: '#/components/schemas/horario'
+      example:
+        aforoActual: 1.46581298050294517310021547018550336360931396484375
+        servicios:
+        - servicios
+        - servicios
+        aforoTotal: 5.962133916683182377482808078639209270477294921875
+        domicilio:
+          estado: Veracruz
+          domicilioId: 0
+          ciudad: Veracruz
+          municipio: Veracruz
+          calle: Calle de las rosas
+          numeroExterior: "12"
+          numeroInterior: "12"
+          pais: México
+          colonia: Lomas de casa blanca
+        horarios:
+        - horarioApertura: horarioApertura
+          horarioCierre: horarioCierre
+          dia: dia
+          horarioId: 5
+        - horarioApertura: horarioApertura
+          horarioCierre: horarioCierre
+          dia: dia
+          horarioId: 5
+        sucursalId: 6
+        medidasSeguridad:
+        - medidasSeguridad
+        - medidasSeguridad
+    horario:
+      title: Horario
+      properties:
+        horarioId:
+          type: integer
+        dia:
+          type: string
+        horarioApertura:
+          type: string
+          format: datetime
+        horarioCierre:
+          type: string
+          format: datetime
+      example:
+        horarioApertura: horarioApertura
+        horarioCierre: horarioCierre
+        dia: dia
+        horarioId: 5
+    domicilio:
+      title: Domicilio
+      properties:
+        domicilioId:
           type: integer
         pais:
           maxLength: 255
@@ -743,46 +784,16 @@ components:
           type: string
           description: La **coloina** del usuario
           example: Lomas de casa blanca
-        aforoActual:
-          type: number
-          format: int32
-        aforoTotal:
-          type: number
-          format: int32
-        horarioApertura:
-          type: string
-          format: datetime
-        horarioCierre:
-          type: string
-          format: datetime
-        servicios:
-          type: array
-          items:
-            type: string
-        medidasSeguridad:
-          type: array
-          items:
-            type: string
       example:
         estado: Veracruz
-        aforoTotal: 5.962133916683182377482808078639209270477294921875
+        domicilioId: 0
+        ciudad: Veracruz
         municipio: Veracruz
-        sucursalId: 6
         calle: Calle de las rosas
-        horarioCierre: horarioCierre
-        medidasSeguridad:
-        - medidasSeguridad
-        - medidasSeguridad
+        numeroExterior: "12"
         numeroInterior: "12"
         pais: México
         colonia: Lomas de casa blanca
-        aforoActual: 1.46581298050294517310021547018550336360931396484375
-        servicios:
-        - servicios
-        - servicios
-        ciudad: Veracruz
-        horarioApertura: horarioApertura
-        numeroExterior: "12"
     error:
       title: Error
       properties:

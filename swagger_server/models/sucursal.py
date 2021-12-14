@@ -6,6 +6,8 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.domicilio import Domicilio  # noqa: F401,E501
+from swagger_server.models.horario import Horario  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -14,90 +16,50 @@ class Sucursal(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, sucursal_id: int=None, pais: str=None, estado: str=None, ciudad: str=None, municipio: str=None, calle: str=None, numero_interior: str=None, numero_exterior: str=None, colonia: str=None, aforo_actual: float=None, aforo_total: float=None, horario_apertura: str=None, horario_cierre: str=None, servicios: List[str]=None, medidas_seguridad: List[str]=None):  # noqa: E501
+    def __init__(self, sucursal_id: int=None, aforo_actual: float=None, aforo_total: float=None, servicios: List[str]=None, medidas_seguridad: List[str]=None, domicilio: Domicilio=None, horarios: List[Horario]=None):  # noqa: E501
         """Sucursal - a model defined in Swagger
 
         :param sucursal_id: The sucursal_id of this Sucursal.  # noqa: E501
         :type sucursal_id: int
-        :param pais: The pais of this Sucursal.  # noqa: E501
-        :type pais: str
-        :param estado: The estado of this Sucursal.  # noqa: E501
-        :type estado: str
-        :param ciudad: The ciudad of this Sucursal.  # noqa: E501
-        :type ciudad: str
-        :param municipio: The municipio of this Sucursal.  # noqa: E501
-        :type municipio: str
-        :param calle: The calle of this Sucursal.  # noqa: E501
-        :type calle: str
-        :param numero_interior: The numero_interior of this Sucursal.  # noqa: E501
-        :type numero_interior: str
-        :param numero_exterior: The numero_exterior of this Sucursal.  # noqa: E501
-        :type numero_exterior: str
-        :param colonia: The colonia of this Sucursal.  # noqa: E501
-        :type colonia: str
         :param aforo_actual: The aforo_actual of this Sucursal.  # noqa: E501
         :type aforo_actual: float
         :param aforo_total: The aforo_total of this Sucursal.  # noqa: E501
         :type aforo_total: float
-        :param horario_apertura: The horario_apertura of this Sucursal.  # noqa: E501
-        :type horario_apertura: str
-        :param horario_cierre: The horario_cierre of this Sucursal.  # noqa: E501
-        :type horario_cierre: str
         :param servicios: The servicios of this Sucursal.  # noqa: E501
         :type servicios: List[str]
         :param medidas_seguridad: The medidas_seguridad of this Sucursal.  # noqa: E501
         :type medidas_seguridad: List[str]
+        :param domicilio: The domicilio of this Sucursal.  # noqa: E501
+        :type domicilio: Domicilio
+        :param horarios: The horarios of this Sucursal.  # noqa: E501
+        :type horarios: List[Horario]
         """
         self.swagger_types = {
             'sucursal_id': int,
-            'pais': str,
-            'estado': str,
-            'ciudad': str,
-            'municipio': str,
-            'calle': str,
-            'numero_interior': str,
-            'numero_exterior': str,
-            'colonia': str,
             'aforo_actual': float,
             'aforo_total': float,
-            'horario_apertura': str,
-            'horario_cierre': str,
             'servicios': List[str],
-            'medidas_seguridad': List[str]
+            'medidas_seguridad': List[str],
+            'domicilio': Domicilio,
+            'horarios': List[Horario]
         }
 
         self.attribute_map = {
             'sucursal_id': 'sucursalId',
-            'pais': 'pais',
-            'estado': 'estado',
-            'ciudad': 'ciudad',
-            'municipio': 'municipio',
-            'calle': 'calle',
-            'numero_interior': 'numeroInterior',
-            'numero_exterior': 'numeroExterior',
-            'colonia': 'colonia',
             'aforo_actual': 'aforoActual',
             'aforo_total': 'aforoTotal',
-            'horario_apertura': 'horarioApertura',
-            'horario_cierre': 'horarioCierre',
             'servicios': 'servicios',
-            'medidas_seguridad': 'medidasSeguridad'
+            'medidas_seguridad': 'medidasSeguridad',
+            'domicilio': 'domicilio',
+            'horarios': 'horarios'
         }
         self._sucursal_id = sucursal_id
-        self._pais = pais
-        self._estado = estado
-        self._ciudad = ciudad
-        self._municipio = municipio
-        self._calle = calle
-        self._numero_interior = numero_interior
-        self._numero_exterior = numero_exterior
-        self._colonia = colonia
         self._aforo_actual = aforo_actual
         self._aforo_total = aforo_total
-        self._horario_apertura = horario_apertura
-        self._horario_cierre = horario_cierre
         self._servicios = servicios
         self._medidas_seguridad = medidas_seguridad
+        self._domicilio = domicilio
+        self._horarios = horarios
 
     @classmethod
     def from_dict(cls, dikt) -> 'Sucursal':
@@ -130,194 +92,6 @@ class Sucursal(Model):
         """
 
         self._sucursal_id = sucursal_id
-
-    @property
-    def pais(self) -> str:
-        """Gets the pais of this Sucursal.
-
-        El nombre del **pais** del usuario  # noqa: E501
-
-        :return: The pais of this Sucursal.
-        :rtype: str
-        """
-        return self._pais
-
-    @pais.setter
-    def pais(self, pais: str):
-        """Sets the pais of this Sucursal.
-
-        El nombre del **pais** del usuario  # noqa: E501
-
-        :param pais: The pais of this Sucursal.
-        :type pais: str
-        """
-        if pais is None:
-            raise ValueError("Invalid value for `pais`, must not be `None`")  # noqa: E501
-
-        self._pais = pais
-
-    @property
-    def estado(self) -> str:
-        """Gets the estado of this Sucursal.
-
-        El nombre del **estado** dentro del país en donde se encuentra el usuario  # noqa: E501
-
-        :return: The estado of this Sucursal.
-        :rtype: str
-        """
-        return self._estado
-
-    @estado.setter
-    def estado(self, estado: str):
-        """Sets the estado of this Sucursal.
-
-        El nombre del **estado** dentro del país en donde se encuentra el usuario  # noqa: E501
-
-        :param estado: The estado of this Sucursal.
-        :type estado: str
-        """
-        if estado is None:
-            raise ValueError("Invalid value for `estado`, must not be `None`")  # noqa: E501
-
-        self._estado = estado
-
-    @property
-    def ciudad(self) -> str:
-        """Gets the ciudad of this Sucursal.
-
-        El nombre de la **ciudad** en donde se encuentra el usuario  # noqa: E501
-
-        :return: The ciudad of this Sucursal.
-        :rtype: str
-        """
-        return self._ciudad
-
-    @ciudad.setter
-    def ciudad(self, ciudad: str):
-        """Sets the ciudad of this Sucursal.
-
-        El nombre de la **ciudad** en donde se encuentra el usuario  # noqa: E501
-
-        :param ciudad: The ciudad of this Sucursal.
-        :type ciudad: str
-        """
-
-        self._ciudad = ciudad
-
-    @property
-    def municipio(self) -> str:
-        """Gets the municipio of this Sucursal.
-
-        El nombre del **municipio** en donde se encuentra el usuario  # noqa: E501
-
-        :return: The municipio of this Sucursal.
-        :rtype: str
-        """
-        return self._municipio
-
-    @municipio.setter
-    def municipio(self, municipio: str):
-        """Sets the municipio of this Sucursal.
-
-        El nombre del **municipio** en donde se encuentra el usuario  # noqa: E501
-
-        :param municipio: The municipio of this Sucursal.
-        :type municipio: str
-        """
-
-        self._municipio = municipio
-
-    @property
-    def calle(self) -> str:
-        """Gets the calle of this Sucursal.
-
-        La **calle** del usuario  # noqa: E501
-
-        :return: The calle of this Sucursal.
-        :rtype: str
-        """
-        return self._calle
-
-    @calle.setter
-    def calle(self, calle: str):
-        """Sets the calle of this Sucursal.
-
-        La **calle** del usuario  # noqa: E501
-
-        :param calle: The calle of this Sucursal.
-        :type calle: str
-        """
-
-        self._calle = calle
-
-    @property
-    def numero_interior(self) -> str:
-        """Gets the numero_interior of this Sucursal.
-
-        El **numeroInterior** del usuario  # noqa: E501
-
-        :return: The numero_interior of this Sucursal.
-        :rtype: str
-        """
-        return self._numero_interior
-
-    @numero_interior.setter
-    def numero_interior(self, numero_interior: str):
-        """Sets the numero_interior of this Sucursal.
-
-        El **numeroInterior** del usuario  # noqa: E501
-
-        :param numero_interior: The numero_interior of this Sucursal.
-        :type numero_interior: str
-        """
-
-        self._numero_interior = numero_interior
-
-    @property
-    def numero_exterior(self) -> str:
-        """Gets the numero_exterior of this Sucursal.
-
-        El **numeroExterior** del usuario  # noqa: E501
-
-        :return: The numero_exterior of this Sucursal.
-        :rtype: str
-        """
-        return self._numero_exterior
-
-    @numero_exterior.setter
-    def numero_exterior(self, numero_exterior: str):
-        """Sets the numero_exterior of this Sucursal.
-
-        El **numeroExterior** del usuario  # noqa: E501
-
-        :param numero_exterior: The numero_exterior of this Sucursal.
-        :type numero_exterior: str
-        """
-
-        self._numero_exterior = numero_exterior
-
-    @property
-    def colonia(self) -> str:
-        """Gets the colonia of this Sucursal.
-
-        La **coloina** del usuario  # noqa: E501
-
-        :return: The colonia of this Sucursal.
-        :rtype: str
-        """
-        return self._colonia
-
-    @colonia.setter
-    def colonia(self, colonia: str):
-        """Sets the colonia of this Sucursal.
-
-        La **coloina** del usuario  # noqa: E501
-
-        :param colonia: The colonia of this Sucursal.
-        :type colonia: str
-        """
-
-        self._colonia = colonia
 
     @property
     def aforo_actual(self) -> float:
@@ -364,48 +138,6 @@ class Sucursal(Model):
         self._aforo_total = aforo_total
 
     @property
-    def horario_apertura(self) -> str:
-        """Gets the horario_apertura of this Sucursal.
-
-
-        :return: The horario_apertura of this Sucursal.
-        :rtype: str
-        """
-        return self._horario_apertura
-
-    @horario_apertura.setter
-    def horario_apertura(self, horario_apertura: str):
-        """Sets the horario_apertura of this Sucursal.
-
-
-        :param horario_apertura: The horario_apertura of this Sucursal.
-        :type horario_apertura: str
-        """
-
-        self._horario_apertura = horario_apertura
-
-    @property
-    def horario_cierre(self) -> str:
-        """Gets the horario_cierre of this Sucursal.
-
-
-        :return: The horario_cierre of this Sucursal.
-        :rtype: str
-        """
-        return self._horario_cierre
-
-    @horario_cierre.setter
-    def horario_cierre(self, horario_cierre: str):
-        """Sets the horario_cierre of this Sucursal.
-
-
-        :param horario_cierre: The horario_cierre of this Sucursal.
-        :type horario_cierre: str
-        """
-
-        self._horario_cierre = horario_cierre
-
-    @property
     def servicios(self) -> List[str]:
         """Gets the servicios of this Sucursal.
 
@@ -446,3 +178,45 @@ class Sucursal(Model):
         """
 
         self._medidas_seguridad = medidas_seguridad
+
+    @property
+    def domicilio(self) -> Domicilio:
+        """Gets the domicilio of this Sucursal.
+
+
+        :return: The domicilio of this Sucursal.
+        :rtype: Domicilio
+        """
+        return self._domicilio
+
+    @domicilio.setter
+    def domicilio(self, domicilio: Domicilio):
+        """Sets the domicilio of this Sucursal.
+
+
+        :param domicilio: The domicilio of this Sucursal.
+        :type domicilio: Domicilio
+        """
+
+        self._domicilio = domicilio
+
+    @property
+    def horarios(self) -> List[Horario]:
+        """Gets the horarios of this Sucursal.
+
+
+        :return: The horarios of this Sucursal.
+        :rtype: List[Horario]
+        """
+        return self._horarios
+
+    @horarios.setter
+    def horarios(self, horarios: List[Horario]):
+        """Sets the horarios of this Sucursal.
+
+
+        :param horarios: The horarios of this Sucursal.
+        :type horarios: List[Horario]
+        """
+
+        self._horarios = horarios
