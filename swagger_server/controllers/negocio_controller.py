@@ -58,6 +58,7 @@ def get_negocios(salto=None, limite=None, filtro=None):  # noqa: E501
         for business in business_list:
             negocio_aux = Negocio()
             '''negocio_aux.foto_perfil = business.fotoperfil'''
+            negocio_aux.negocio_id = business.negocioid
             negocio_aux.nombre_completo = business.nombrenegocio
             business_objects.append(negocio_aux)
     except DoesNotExist:

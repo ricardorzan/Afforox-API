@@ -106,14 +106,14 @@ CREATE TABLE Horario
 )
 ;
 INSERT INTO Dia
-VALUES (1, 'Lunes'),
-       (2, 'Martes'),
-       (3, 'Miercoles'),
-       (4, 'Jueves'),
-       (5, 'Viernes'),
-       (6, 'Sabado'),
-       (7, 'Domingo'),
-       (8, 'Todos')
+VALUES (1, 'LUNES'),
+       (2, 'MARTES'),
+       (3, 'MIERCOLES'),
+       (4, 'JUEVES'),
+       (5, 'VIERNES'),
+       (6, 'SABADO'),
+       (7, 'DOMINGO'),
+       (8, 'TODOS')
 ;
 
 
@@ -124,17 +124,17 @@ CREATE TABLE Medidasseguridad
 )
 ;
 INSERT INTO Medidasseguridad
-VALUES (1, 'sanaDistancia'),
-       (2, 'tomaDeTemperatura'),
-       (3, 'trabajadoresConProteccion'),
-       (4, 'gelDesinfectante'),
-       (5, 'cubrebocasObligatorio'),
-       (6, N'aguaYJabonEnBaños'),
-       (7, 'desinfeccionDeSuperficies'),
-       (8, 'entradasYSalidasSeparadas'),
-       (9, 'sanitizacionDelEstablecimiento'),
-       (10, 'sanaDistanciaMarcadaEnFilas'),
-       (11, 'otra')
+VALUES (1, 'SANADISTANCIA'),
+       (2, 'TOMADETEMPERATURA'),
+       (3, 'TRABAJADORESCONPROTECCION'),
+       (4, 'GELDESINFECTANTE'),
+       (5, 'CUBREBOCASOBLIGATORIO'),
+       (6, N'AGUAYJABONENBANIOS'),
+       (7, 'DESINFECCIONDESUPERFICIES'),
+       (8, 'ENTRADASYSALIDASSEPARADAS'),
+       (9, 'SANITIZACIONDELESTABLECIMIENTO'),
+       (10, 'SANADISTANCIAMARCADAENFILAS'),
+       (11, 'OTRA')
 ;
 
 CREATE TABLE Negocio
@@ -179,14 +179,14 @@ CREATE TABLE Servicios
 )
 ;
 INSERT INTO Servicios
-VALUES (1, 'estacionamiento'),
-       (2, 'valetParking'),
-       (3, 'areaInfantil'),
-       (4, 'delivery'),
-       (5, 'paraLlevar'),
-       (6, 'areaAireLibre'),
-       (7, 'wifi'),
-       (8, 'reservaciones')
+VALUES (1, 'ESTACIONAMIENTO'),
+       (2, 'VALETPARKING'),
+       (3, 'AREAINFANTIL'),
+       (4, 'DELIVERY'),
+       (5, 'PARALLEVAR'),
+       (6, 'AREAAIRELIBRE'),
+       (7, 'WIFI'),
+       (8, 'RESERVACIONES')
 ;
 
 CREATE TABLE Sucursal
@@ -222,12 +222,12 @@ CREATE TABLE Tiponegocio
 )
 ;
 INSERT INTO Tiponegocio
-VALUES ('Restaurante', 1),
-       ('Estética', 2),
-       ('Salón de belleza', 3),
-       ('Barbería', 4),
-       ('Gimnasio', 5),
-       ('Otro', 6)
+VALUES ('RESTAURANTE', 1),
+       ('ESTETICA', 2),
+       ('SALONBELLEZA', 3),
+       ('BARBERIA', 4),
+       ('GIMNASIO', 5),
+       ('OTRO', 6)
 ;
 
 CREATE TABLE Usuario
