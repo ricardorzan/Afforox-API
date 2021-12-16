@@ -68,19 +68,19 @@ def login(username, password):  # noqa: E501
 
 
 def send_validationToken_email(username, nombrecompleto, token):
-    employexEmail = "employexapp@gmail.com"
+    afforoxEmail = "afforox@gmail.com"
     message = MIMEMultipart("plain")
-    message["From"] = "employexapp@gmail.com"
+    message["From"] = "afforox@gmail.com"
     message["To"] = username
     message["Subject"] = "Codigo de verificación Afforox"
     body = "Bienvenido a Afforox " + nombrecompleto + ", su código de verificacion es: " + token
     body = MIMEText(body)
     message.attach(body)
 
-    smtp = SMTP("smtp.gmail.com", 587)
+    smtp = SMTP("smtp.gmail.com")
     smtp.starttls()
-    smtp.login(employexEmail, "Jinchuriki2k")
-    smtp.sendmail(employexEmail, username, message.as_string())
+    smtp.login(afforoxEmail, "Jinchuriki2k")
+    smtp.sendmail(afforoxEmail, username, message.as_string())
     smtp.quit()
 
 
