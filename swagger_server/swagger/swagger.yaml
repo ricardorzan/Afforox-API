@@ -327,18 +327,12 @@ paths:
       responses:
         "200":
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/negocio'
         "400":
           description: Invalid username supplied
         "401":
           description: Access token is missing or invalid
         "404":
           description: User not found
-      security:
-      - bearerAuth: []
       x-openapi-router-controller: swagger_server.controllers.negocio_controller
   /negocios/{negocioId}/sucursales:
     post:
@@ -443,6 +437,30 @@ paths:
       security:
       - bearerAuth: []
       x-openapi-router-controller: swagger_server.controllers.sucursal_controller
+  /sucursales/{sucursalId}:
+    patch:
+      tags:
+        - sucursal
+      operationId: update_aforo
+      parameters:
+        - name: sucursalId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: action
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: succesful operation
+      x-openapi-router-controller: swagger_server.controllers.sucursal_controller
+
+
 components:
   schemas:
     token:
@@ -523,7 +541,7 @@ components:
           numeroInterior: "12"
           pais: México
           colonia: Lomas de casa blanca
-        fechaNacimiento: 2000-01-23
+        fechaNacimiento: 2000-01-23T00:00:00.000Z
         contrasenia: EjemploContrasena1.
         nombreCompleto: Pepe pecas
         telefono: "5536987896"
@@ -545,6 +563,8 @@ components:
       - nombreCompleto
       - telefono
       properties:
+        usuarioCorreo:
+          type: string
         negocioId:
           type: integer
         fotoPerfil:
@@ -592,11 +612,11 @@ components:
       example:
         whatsapp: "5536987896"
         sucursales:
-        - aforoActual: 1.46581298050294517310021547018550336360931396484375
+        - aforoActual: 1.4658129805029452
           servicios:
           - servicios
           - servicios
-          aforoTotal: 5.962133916683182377482808078639209270477294921875
+          aforoTotal: 5.962133916683182
           domicilio:
             estado: Veracruz
             domicilioId: 0
@@ -620,11 +640,11 @@ components:
           medidasSeguridad:
           - medidasSeguridad
           - medidasSeguridad
-        - aforoActual: 1.46581298050294517310021547018550336360931396484375
+        - aforoActual: 1.4658129805029452
           servicios:
           - servicios
           - servicios
-          aforoTotal: 5.962133916683182377482808078639209270477294921875
+          aforoTotal: 5.962133916683182
           domicilio:
             estado: Veracruz
             domicilioId: 0
@@ -663,6 +683,8 @@ components:
       properties:
         sucursalId:
           type: integer
+        nombreSucursal:
+          type: string
         aforoActual:
           type: number
           format: int32
@@ -677,6 +699,8 @@ components:
           type: array
           items:
             type: string
+        telefono:
+          type: string
         domicilio:
           $ref: '#/components/schemas/domicilio'
         horarios:
@@ -684,11 +708,11 @@ components:
           items:
             $ref: '#/components/schemas/horario'
       example:
-        aforoActual: 1.46581298050294517310021547018550336360931396484375
+        aforoActual: 1.4658129805029452
         servicios:
         - servicios
         - servicios
-        aforoTotal: 5.962133916683182377482808078639209270477294921875
+        aforoTotal: 5.962133916683182
         domicilio:
           estado: Veracruz
           domicilioId: 0
