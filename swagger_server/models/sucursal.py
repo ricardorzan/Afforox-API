@@ -16,11 +16,13 @@ class Sucursal(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, sucursal_id: int=None, aforo_actual: float=None, aforo_total: float=None, servicios: List[str]=None, medidas_seguridad: List[str]=None, domicilio: Domicilio=None, horarios: List[Horario]=None):  # noqa: E501
+    def __init__(self, sucursal_id: int=None, nombre_sucursal: str=None, aforo_actual: float=None, aforo_total: float=None, servicios: List[str]=None, medidas_seguridad: List[str]=None, telefono: str=None, domicilio: Domicilio=None, horarios: List[Horario]=None):  # noqa: E501
         """Sucursal - a model defined in Swagger
 
         :param sucursal_id: The sucursal_id of this Sucursal.  # noqa: E501
         :type sucursal_id: int
+        :param nombre_sucursal: The nombre_sucursal of this Sucursal.  # noqa: E501
+        :type nombre_sucursal: str
         :param aforo_actual: The aforo_actual of this Sucursal.  # noqa: E501
         :type aforo_actual: float
         :param aforo_total: The aforo_total of this Sucursal.  # noqa: E501
@@ -29,6 +31,8 @@ class Sucursal(Model):
         :type servicios: List[str]
         :param medidas_seguridad: The medidas_seguridad of this Sucursal.  # noqa: E501
         :type medidas_seguridad: List[str]
+        :param telefono: The telefono of this Sucursal.  # noqa: E501
+        :type telefono: str
         :param domicilio: The domicilio of this Sucursal.  # noqa: E501
         :type domicilio: Domicilio
         :param horarios: The horarios of this Sucursal.  # noqa: E501
@@ -36,28 +40,34 @@ class Sucursal(Model):
         """
         self.swagger_types = {
             'sucursal_id': int,
+            'nombre_sucursal': str,
             'aforo_actual': float,
             'aforo_total': float,
             'servicios': List[str],
             'medidas_seguridad': List[str],
+            'telefono': str,
             'domicilio': Domicilio,
             'horarios': List[Horario]
         }
 
         self.attribute_map = {
             'sucursal_id': 'sucursalId',
+            'nombre_sucursal': 'nombreSucursal',
             'aforo_actual': 'aforoActual',
             'aforo_total': 'aforoTotal',
             'servicios': 'servicios',
             'medidas_seguridad': 'medidasSeguridad',
+            'telefono': 'telefono',
             'domicilio': 'domicilio',
             'horarios': 'horarios'
         }
         self._sucursal_id = sucursal_id
+        self._nombre_sucursal = nombre_sucursal
         self._aforo_actual = aforo_actual
         self._aforo_total = aforo_total
         self._servicios = servicios
         self._medidas_seguridad = medidas_seguridad
+        self._telefono = telefono
         self._domicilio = domicilio
         self._horarios = horarios
 
@@ -92,6 +102,27 @@ class Sucursal(Model):
         """
 
         self._sucursal_id = sucursal_id
+
+    @property
+    def nombre_sucursal(self) -> str:
+        """Gets the nombre_sucursal of this Sucursal.
+
+
+        :return: The nombre_sucursal of this Sucursal.
+        :rtype: str
+        """
+        return self._nombre_sucursal
+
+    @nombre_sucursal.setter
+    def nombre_sucursal(self, nombre_sucursal: str):
+        """Sets the nombre_sucursal of this Sucursal.
+
+
+        :param nombre_sucursal: The nombre_sucursal of this Sucursal.
+        :type nombre_sucursal: str
+        """
+
+        self._nombre_sucursal = nombre_sucursal
 
     @property
     def aforo_actual(self) -> float:
@@ -178,6 +209,27 @@ class Sucursal(Model):
         """
 
         self._medidas_seguridad = medidas_seguridad
+
+    @property
+    def telefono(self) -> str:
+        """Gets the telefono of this Sucursal.
+
+
+        :return: The telefono of this Sucursal.
+        :rtype: str
+        """
+        return self._telefono
+
+    @telefono.setter
+    def telefono(self, telefono: str):
+        """Sets the telefono of this Sucursal.
+
+
+        :param telefono: The telefono of this Sucursal.
+        :type telefono: str
+        """
+
+        self._telefono = telefono
 
     @property
     def domicilio(self) -> Domicilio:

@@ -15,9 +15,11 @@ class Negocio(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, negocio_id: int=None, foto_perfil: str=None, nombre_completo: str=None, correo_electronico: str=None, telefono: str=None, whatsapp: str=None, facebook: str=None, instagram: str=None, tipo_negocio: str=None, sucursales: List[Sucursal]=None):  # noqa: E501
+    def __init__(self, usuario_correo: str=None, negocio_id: int=None, foto_perfil: str=None, nombre_completo: str=None, correo_electronico: str=None, telefono: str=None, whatsapp: str=None, facebook: str=None, instagram: str=None, tipo_negocio: str=None, sucursales: List[Sucursal]=None):  # noqa: E501
         """Negocio - a model defined in Swagger
 
+        :param usuario_correo: The usuario_correo of this Negocio.  # noqa: E501
+        :type usuario_correo: str
         :param negocio_id: The negocio_id of this Negocio.  # noqa: E501
         :type negocio_id: int
         :param foto_perfil: The foto_perfil of this Negocio.  # noqa: E501
@@ -40,6 +42,7 @@ class Negocio(Model):
         :type sucursales: List[Sucursal]
         """
         self.swagger_types = {
+            'usuario_correo': str,
             'negocio_id': int,
             'foto_perfil': str,
             'nombre_completo': str,
@@ -53,6 +56,7 @@ class Negocio(Model):
         }
 
         self.attribute_map = {
+            'usuario_correo': 'usuarioCorreo',
             'negocio_id': 'negocioId',
             'foto_perfil': 'fotoPerfil',
             'nombre_completo': 'nombreCompleto',
@@ -64,6 +68,7 @@ class Negocio(Model):
             'tipo_negocio': 'tipoNegocio',
             'sucursales': 'sucursales'
         }
+        self._usuario_correo = usuario_correo
         self._negocio_id = negocio_id
         self._foto_perfil = foto_perfil
         self._nombre_completo = nombre_completo
@@ -85,6 +90,27 @@ class Negocio(Model):
         :rtype: Negocio
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def usuario_correo(self) -> str:
+        """Gets the usuario_correo of this Negocio.
+
+
+        :return: The usuario_correo of this Negocio.
+        :rtype: str
+        """
+        return self._usuario_correo
+
+    @usuario_correo.setter
+    def usuario_correo(self, usuario_correo: str):
+        """Sets the usuario_correo of this Negocio.
+
+
+        :param usuario_correo: The usuario_correo of this Negocio.
+        :type usuario_correo: str
+        """
+
+        self._usuario_correo = usuario_correo
 
     @property
     def negocio_id(self) -> int:

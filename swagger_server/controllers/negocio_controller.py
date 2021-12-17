@@ -8,7 +8,7 @@ from peewee import DoesNotExist
 
 from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
-from swagger_server.models.negocio import Negocio  # noqa: E501
+from swagger_server.models import Negocio, Sucursal, Domicilio  # noqa: E501
 from swagger_server import util
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -34,7 +34,53 @@ def get_negocio_by_id(negocio_id):  # noqa: E501
 
     :rtype: Negocio
     """
-    return 'do some magic!'
+    response = Response(status=HTTPStatus.NOT_FOUND.value)
+    database.connect()
+    try:
+        negocio = NegocioDB.get(NegocioDB.negocioid == negocio_id)
+        print(negocio)
+        negocio_aux = Negocio()
+        negocio_aux.tipo_negocio = TiponegocioDB.get(TiponegocioDB.tiponegocioid == negocio.tiponegocioid).tiponegocio
+        negocio_aux.nombre_completo = negocio.nombrenegocio
+        negocio_aux.correo_electronico = negocio.correoelectronico
+        negocio_aux.usuario_correo = negocio.correoelectronicousuario.correoelectronico
+        print(negocio_aux.usuario_correo)
+        negocio_aux.facebook = negocio.facebook
+        negocio_aux.instagram = negocio.instagram
+        negocio_aux.telefono = negocio.telefono
+        negocio_aux.whatsapp = negocio.whatsapp
+
+        retrive_sucursal_list = SucursalDB.select().where(SucursalDB.negocioid == negocio_id)
+        if retrive_sucursal_list.exists():
+            sucursal_list = []
+            for sucursal in retrive_sucursal_list:
+                sucursal_aux = Sucursal()
+                sucursal_aux.sucursal_id = sucursal.sucursalid
+                sucursal_aux.nombre_sucursal = sucursal.nombresucursal
+                sucursal_aux.domicilio = Domicilio(
+                    calle=sucursal.domicilioid.calle,
+                    ciudad=sucursal.domicilioid.ciudad,
+                    colonia=sucursal.domicilioid.colonia,
+                    estado=sucursal.domicilioid.estado,
+                    municipio=sucursal.domicilioid.municipio,
+                    numero_exterior=sucursal.domicilioid.numeroexterior,
+                    numero_interior=sucursal.domicilioid.numerointerior,
+                    pais=sucursal.domicilioid.pais,
+                )
+                sucursal_aux.telefono = sucursal.telefono
+                sucursal_aux.aforo_total = sucursal.aforototal
+                sucursal_aux.aforo_actual = sucursal.aforoactual
+                sucursal_list.append(sucursal_aux)
+            negocio_aux.sucursales = sucursal_list
+
+        negocio_json = Negocio.to_dict(negocio_aux)
+        print(negocio_json)
+        response = Response(json.dumps(negocio_json), status=HTTPStatus.OK.value, mimetype="application/json")
+    except DoesNotExist:
+        response = Response(status=HTTPStatus.NOT_FOUND.value)
+    finally:
+        database.close()
+    return response
 
 
 def get_negocios(salto=None, limite=None, filtro=None):  # noqa: E501
@@ -53,7 +99,7 @@ def get_negocios(salto=None, limite=None, filtro=None):  # noqa: E501
     """
     database.connect()
     try:
-        business_list = NegocioDB.select().paginate(1,limite)
+        business_list = NegocioDB.select().paginate(1, limite)
         business_objects = []
         for business in business_list:
             negocio_aux = Negocio()
