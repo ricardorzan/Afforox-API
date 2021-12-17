@@ -1,0 +1,25 @@
+version: '3'
+
+# Run as
+# docker-compose build; docker-compose up -d
+# Check with
+# docker ps
+# Then check the logs with
+# docker logs --tail 50 $service_name
+# docker-compose images
+# docker-compose logs --tail 20 $service_name
+
+services:
+
+  postgres_db:
+    image: postgres
+    environment:   # Set up postgres database name and password
+      PASSWORD: gatodeportivo
+      DATABASE: employex
+
+  python_app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_db
